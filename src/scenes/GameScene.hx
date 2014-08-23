@@ -8,6 +8,8 @@ import com.haxepunk.utils.Key;
 import entities.Player;
 import entities.NonMoveable;
 
+import utils.WorldLoader;
+
 class GameScene extends Scene {
 
   private var lightWorld:World;
@@ -36,22 +38,7 @@ class GameScene extends Scene {
     darkWorld.color = World.DARK;
     add(darkWorld);
 
-
-    var player = new Player(100, 10);
-    lightWorld.addChild(player);
-
-    player = new Player(100, 10);
-    darkWorld.addChild(player);
-
-    var floor = new NonMoveable(100, HXP.halfHeight - 20);
-    floor.width = Std.int(HXP.halfWidth);
-    floor.height = 20;
-    lightWorld.addChild(floor);
-
-    floor = new NonMoveable(100, HXP.halfHeight - 20);
-    floor.width = Std.int(HXP.halfWidth);
-    floor.height = 20;
-    darkWorld.addChild(floor);
+    WorldLoader.loadWorld("world1", this, lightWorld, darkWorld);
 	}
 
   public override function update() {

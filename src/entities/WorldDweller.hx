@@ -7,6 +7,14 @@ import com.haxepunk.graphics.Image;
 import utils.Vector;
 
 class WorldDweller extends Entity {
+  public static inline var MAX_ACCELERATION_X:Float = 2;
+  public static inline var MAX_ACCELERATION_Y:Float = 8;
+
+  public static inline var AIR_DRAG:Float = 0.01;
+  public static inline var GROUND_DRAG:Float = 0.2;
+
+  public var grounded:Bool;
+
   public var _world:World;
 
   public var acceleration:Vector;
@@ -19,12 +27,14 @@ class WorldDweller extends Entity {
     super(x, y);
 
     acceleration = new Vector(0, 0);
+
+    grounded = false;
   }
   
   public override function update() {
     super.update();
 
-    applyPhysics();
+    doPhysics();
   }
 
   public override function render() {
@@ -38,17 +48,30 @@ class WorldDweller extends Entity {
     }
   }
 
+  public override function moveCollideY(entity:Entity):Bool {
+    if (entity.type == "solid") {
+      grounded = true;
+    }
+    return super.moveCollideY(entity);
+  }
+
   /* ---------- Game Related Functions ---------- */
 
 
-  public function applyPhysics() {
+  public function doPhysics() {
+    if (Math.abs(acceleration.x) > MAX_ACCELERATION_X) {
+      acceleration.x = HXP.sign(acceleration.x) * MAX_ACCELERATION_X;
+    }
+    if (Math.abs(acceleration.y) > MAX_ACCELERATION_Y) {
+      acceleration.y = HXP.sign(acceleration.y) * MAX_ACCELERATION_Y;
+    }
     moveBy(acceleration.x, acceleration.y, "solid");
   }
 
   private function applyDrag() {
     if (Math.abs(acceleration.x) > 0) {
-      acceleration.x += -HXP.sign(acceleration.x) * 0.1;
-      if (Math.abs(acceleration.x) <= 0.1) {
+      acceleration.x += -HXP.sign(acceleration.x) * (grounded ?  GROUND_DRAG : AIR_DRAG);
+      if (Math.abs(acceleration.x) <= GROUND_DRAG) {
         acceleration.x = 0;
       }
     } 

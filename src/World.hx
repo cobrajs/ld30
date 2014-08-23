@@ -11,10 +11,10 @@ import entities.WorldDweller;
 import utils.Vector;
 
 class World extends Entity {
-  public static inline var DEFAULT_GRAVITY:Float = 1;
+  public static inline var DEFAULT_GRAVITY:Float = 0.2;
 
-  public static inline var LIGHT:Int = 0xFFFFFF;
-  public static inline var DARK:Int = 0x000000;
+  public static inline var LIGHT:Int = 0xDDDDDD;
+  public static inline var DARK:Int = 0x222222;
 
   public var children:Array<WorldDweller>;
   public var gravity:Vector;
@@ -43,6 +43,8 @@ class World extends Entity {
     if (receiveEvents) {
     }
 
+    doPhysics();
+
     for (child in children) {
       child.update();
     }
@@ -52,7 +54,6 @@ class World extends Entity {
     for (child in children) {
       scene.add(child);
     }
-    doPhysics();
   }
 
 

@@ -1,3 +1,21 @@
 {
-  name : "World 1"
+  name : "World 1",
+  type : "mirrored",
+  playerStart : {
+    x : 100,
+    y: 10
+  },
+  objects : [
+    {
+      classType : "NonMoveable",
+      position : {
+        x : 100,
+        y : -20
+      },
+      size : {
+        width : 0.5,
+        height : 20
+      }
+    }
+  ]
 }
