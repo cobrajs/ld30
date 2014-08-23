@@ -1,14 +1,15 @@
 
 
+import entities.WorldDweller;
+import utils.MessageBus;
+
 import com.haxepunk.Entity;
 import com.haxepunk.HXP;
 import com.haxepunk.graphics.Image;
 import com.haxepunk.utils.Key;
 import com.haxepunk.utils.Input;
 
-import entities.WorldDweller;
-
-import utils.Vector;
+import flash.geom.Point;
 
 class World extends Entity {
   public static inline var DEFAULT_GRAVITY:Float = 0.2;
@@ -17,24 +18,28 @@ class World extends Entity {
   public static inline var DARK:Int = 0x222222;
 
   public var children:Array<WorldDweller>;
-  public var gravity:Vector;
+  public var gravity:Point;
   public var color(default, set):Int;
 
   public var receiveEvents:Bool;
+
+  private var messageBus:MessageBus;
 
 
   /* ---------- HaxePunk Overrides ---------- */
 
  
-  public function new(x:Float, y:Float, width:Int, height:Int) {
+  public function new(x:Float, y:Float, width:Int, height:Int, messageBus:MessageBus) {
     super(x, y);
 
     this.width = width;
     this.height = height;
 
+    this.messageBus = messageBus;
+
     children = new Array<WorldDweller>();
 
-    gravity = new Vector(0, DEFAULT_GRAVITY);
+    gravity = new Point(0, DEFAULT_GRAVITY);
 
     receiveEvents = false;
   }
@@ -42,8 +47,6 @@ class World extends Entity {
   public override function update() {
     if (receiveEvents) {
     }
-
-    doPhysics();
 
     for (child in children) {
       child.update();
@@ -74,12 +77,6 @@ class World extends Entity {
 
   /* ---------- Game Related Functions ---------- */
 
-
-  private function doPhysics() {
-    for (child in children) {
-      child.applyGravity(gravity);
-    }
-  }
 
   public function getInverse():Int {
     if (color == LIGHT) {

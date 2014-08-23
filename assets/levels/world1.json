@@ -9,11 +9,11 @@
     {
       classType : "NonMoveable",
       position : {
-        x : 100,
+        x : 0.1,
         y : -20
       },
       size : {
-        width : 0.5,
+        width : 0.8,
         height : 20
       }
     }

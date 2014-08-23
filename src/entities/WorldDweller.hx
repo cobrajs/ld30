@@ -1,14 +1,19 @@
 package entities;
 
+import utils.MessageBus;
+
 import com.haxepunk.Entity;
 import com.haxepunk.HXP;
 import com.haxepunk.graphics.Image;
 
-import utils.Vector;
+import flash.geom.Point;
 
 class WorldDweller extends Entity {
   public static inline var MAX_ACCELERATION_X:Float = 2;
   public static inline var MAX_ACCELERATION_Y:Float = 8;
+
+  public static inline var GRAVITY_X:Float = 0;
+  public static inline var GRAVITY_Y:Float = 0.2;
 
   public static inline var AIR_DRAG:Float = 0.01;
   public static inline var GROUND_DRAG:Float = 0.2;
@@ -17,24 +22,28 @@ class WorldDweller extends Entity {
 
   public var _world:World;
 
-  public var acceleration:Vector;
+  public var acceleration:Point;
+
+  private var messageBus:MessageBus;
 
 
   /* ---------- HaxePunk Overrides ---------- */
  
 
-  public function new(x:Float, y:Float) {
+  public function new(x:Float, y:Float, messageBus:MessageBus) {
     super(x, y);
 
-    acceleration = new Vector(0, 0);
+    acceleration = new Point(0, 0);
+
+    this.messageBus = messageBus;
 
     grounded = false;
   }
   
   public override function update() {
-    super.update();
-
     doPhysics();
+
+    super.update();
   }
 
   public override function render() {
@@ -65,6 +74,25 @@ class WorldDweller extends Entity {
     if (Math.abs(acceleration.y) > MAX_ACCELERATION_Y) {
       acceleration.y = HXP.sign(acceleration.y) * MAX_ACCELERATION_Y;
     }
+
+    if (x + acceleration.x < _world.x) {
+      moveTo(_world.x, y);
+      acceleration.x = 0;
+    } else if (x + acceleration.x + width > _world.x + _world.width) {
+      moveTo(_world.x + _world.width - width, y);
+      acceleration.x = 0;
+    }
+
+    if (y + acceleration.y < _world.y) {
+      moveTo(x, _world.y);
+      acceleration.y = 0;
+    } else if (y + acceleration.y > _world.y + _world.height) {
+      acceleration.y = 0;
+
+    }
+
+    applyGravity();
+
     moveBy(acceleration.x, acceleration.y, "solid");
   }
 
@@ -77,13 +105,16 @@ class WorldDweller extends Entity {
     } 
   }
 
-  public function applyGravity(gravity:Vector) {
-    acceleration.add(gravity);
+  public function applyGravity() {
+    acceleration.x += GRAVITY_X;
+    if (!grounded) {
+      acceleration.y += GRAVITY_Y;
+    }
   }
 
   //Assign a color to the sprite based on the color of the world
   public function assignWorld(_world:World) {
-    graphic = Image.createRect(Std.int(width), Std.int(height), _world.getInverse());
+    setupGraphics(_world.color, _world.getInverse());
 
     if (_world.color == World.DARK) {
       graphic.relative = false;
@@ -92,5 +123,9 @@ class WorldDweller extends Entity {
     moveBy(_world.x, _world.y);
 
     this._world = _world;
+  }
+
+  public function setupGraphics(color:Int, inverseColor:Int) {
+    graphic = Image.createRect(Std.int(width), Std.int(height), inverseColor);
   }
 }

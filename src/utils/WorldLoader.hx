@@ -1,10 +1,11 @@
 package utils;
 
+import entities.*;
+import utils.MessageBus;
+
 import com.haxepunk.graphics.Text;
 import com.haxepunk.Scene;
 import com.haxepunk.HXP;
-
-import entities.*;
 
 import tjson.TJSON;
 
@@ -15,7 +16,7 @@ class WorldLoader {
   public static inline var MIRRORED:String = "mirrored";
 
 
-  public static function loadWorld(worldName:String, scene:Scene, lightWorld:World, darkWorld:World) {
+  public static function loadWorld(worldName:String, scene:Scene, lightWorld:World, darkWorld:World, messageBus:MessageBus) {
     var raw = Assets.getText("levels/" + worldName + ".json");
     var level = TJSON.parse(raw);
     var levelName = new Text(level.name, 10, 10, 0, 0);
@@ -24,8 +25,8 @@ class WorldLoader {
     if (level.type == MIRRORED) {
       // Add player
       var start = level.playerStart;
-      lightWorld.addChild(new Player(start.x, start.y));
-      darkWorld.addChild(new Player(start.x, start.y));
+      lightWorld.addChild(new Player(start.x, start.y, messageBus, true));
+      darkWorld.addChild(new Player(start.x, start.y, messageBus, false));
 
       // Add objects
       var objects = cast(level.objects, Array<Dynamic>);
@@ -40,7 +41,7 @@ class WorldLoader {
 
           HXP.log(x, y, width, height);
 
-          var lightObject:WorldDweller = Type.createInstance(classType, [x, y]);
+          var lightObject:WorldDweller = Type.createInstance(classType, [x, y, messageBus]);
           lightObject.width = width;
           lightObject.height = height;
           lightWorld.addChild(lightObject);
