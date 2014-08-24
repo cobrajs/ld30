@@ -13,6 +13,7 @@ import com.haxepunk.utils.Input;
 class Player extends WorldDweller {
   public static inline var MOVE_ACCELERATION_GROUND:Float = 0.5;
   public static inline var MOVE_ACCELERATION_AIR:Float = 0.05;
+  public static inline var JUMP_SPEED:Float = 5;
 
   private var spriteMap:Spritemap;
 
@@ -44,7 +45,7 @@ class Player extends WorldDweller {
         applyDrag();
       }
       if (Input.pressed("jump") && grounded) {
-        acceleration.y = -8;
+        acceleration.y = -JUMP_SPEED;
         grounded = false;
       }
     } else {

@@ -1,6 +1,7 @@
 {
   name : "World 1",
   type : "mirrored",
+  control : "mirrored",
   playerStart : {
     x : 100,
     y: 10
@@ -18,8 +19,8 @@
       }
     }, {
       classType : "NonMoveable",
-      position: { x : 200, y : -100 },
-      size : { width : 50, height : 80 }
+      position: { x : 200, y : -70 },
+      size : { width : 50, height : 50 }
     }, {
       classType : "NonMoveable",
       position: { x : 250, y : -120 },

@@ -49,8 +49,6 @@ class EndState extends NonMoveable {
     if (!playerIn && playerCollide) {
       playerIn = true;
       spriteMap.play("close");
-      trace("Adding win message: " + light);
-      trace("Adding win message: " + messageBus);
       messageBus.addMessage(MessageBus.WIN_STATE, light);
     } else if (playerIn && !playerCollide) {
       playerIn = false;

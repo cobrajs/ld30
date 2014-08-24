@@ -96,7 +96,6 @@ class GameScene extends Scene {
     if (initSweepLight) {
       lightSweep.y = 0;
       tween.tween(lightSweep, "y", -HXP.height, 0.5);
-      trace(-lightSweep.height);
     } else {
       darkSweep.y = 0;
       tween.tween(darkSweep, "y", HXP.height, 0.5);
@@ -150,7 +149,6 @@ class GameScene extends Scene {
   }
 
   public function win() {
-    trace("WINNER");
     messageBus.addMessage(MessageBus.SCENE_SWITCH, "gameoverLight");
   }
 

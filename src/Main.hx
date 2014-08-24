@@ -3,6 +3,7 @@ import utils.MessageBus;
 import com.haxepunk.Engine;
 import com.haxepunk.HXP;
 
+import scenes.TitleScene;
 import scenes.GameScene;
 
 class Main extends Engine {
@@ -20,10 +21,13 @@ class Main extends Engine {
 
     messageBus.subscribe(MessageBus.SCENE_SWITCH, MAIN_SCENESWITCH, sceneSwitch);
 
-		HXP.scene = new GameScene("world1", messageBus);
+		HXP.scene = new TitleScene(messageBus);
 	}
 
   private function sceneSwitch(message:String):Bool {
+    if (message == "menu") {
+      HXP.scene = new GameScene("world1", messageBus, true);
+    }
     if (message == "gameoverLight") {
       HXP.scene = new GameScene("world1", messageBus, true);
     } else if (message == "gameoverDark") {

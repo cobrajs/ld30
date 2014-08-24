@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="640px"
+   height="480px"
+   id="svg5113"
+   version="1.1"
+   inkscape:version="0.48.5 r10040"
+   sodipodi:docname="title.svg"
+   inkscape:export-filename="/home/cobra/dev/ludumdare/ld30/assets/graphics/title.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
+  <defs
+     id="defs5115" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.77472527"
+     inkscape:cx="373.09423"
+     inkscape:cy="244.50262"
+     inkscape:current-layer="layer3"
+     inkscape:document-units="px"
+     showgrid="true"
+     inkscape:window-width="1362"
+     inkscape:window-height="740"
+     inkscape:window-x="0"
+     inkscape:window-y="24"
+     inkscape:window-maximized="0">
+    <inkscape:grid
+       type="xygrid"
+       id="grid5121"
+       empspacing="8"
+       visible="true"
+       enabled="true"
+       snapvisiblegridlinesonly="true"
+       dotted="true" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata5118">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="layer1"
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     style="display:inline">
+    <rect
+       style="fill:#dddddd;fill-opacity:1;stroke:none"
+       id="rect5123"
+       width="640"
+       height="240"
+       x="0"
+       y="0"
+       rx="4.8000026"
+       ry="3.6923113" />
+    <rect
+       ry="3.6923113"
+       rx="4.8000026"
+       y="240"
+       x="0"
+       height="240"
+       width="640"
+       id="rect5125"
+       style="fill:#222222;fill-opacity:1;stroke:none" />
+    <rect
+       ry="3.6923113"
+       rx="4.8000026"
+       y="0"
+       x="0"
+       height="240"
+       width="640"
+       id="rect5763"
+       style="fill:#dddddd;fill-opacity:1;stroke:none" />
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer4"
+     inkscape:label="Dark">
+    <path
+       inkscape:connector-curvature="0"
+       id="path5729"
+       style="font-size:72px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#dddddd;fill-opacity:1;stroke:none;font-family:genown_v01;-inkscape-font-specification:genown_v01"
+       d="m 232,304 0,64 -64,0 0,-8 56,0 0,-48 -56,0 0,-8 z m -56,16 0,32 -8,0 0,-32 z"
+       sodipodi:nodetypes="cccccccccccccc" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path5731"
+       style="font-size:72px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#dddddd;fill-opacity:1;stroke:none;font-family:genown_v01;-inkscape-font-specification:genown_v01"
+       d="m 304,368 0,-56 -48,0 0,56 -8,0 0,-64 64,0 0,64 z m -8,-32 0,8 -32,0 0,-8 z"
+       sodipodi:nodetypes="cccccccccccccc" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path5733"
+       style="font-size:72px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#dddddd;fill-opacity:1;stroke:none;font-family:genown_v01;-inkscape-font-specification:genown_v01"
+       d="m 336,344 0,24 -8,0 0,-64 64,0 0,40 z m 48,-8 0,-24 -48,0 0,24 z m 8,24 0,8 -32,0 0,-8 z"
+       sodipodi:nodetypes="ccccccccccccccccc" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path5735"
+       style="font-size:72px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#dddddd;fill-opacity:1;stroke:none;font-family:genown_v01;-inkscape-font-specification:genown_v01"
+       d="m 416,304 0,64 -8,0 0,-64 z m 56,32 0,8 -56,0 0,-8 z m 0,-32 0,8 -32,0 0,-8 z m 0,56 0,8 -32,0 0,-8 z"
+       sodipodi:nodetypes="cccccccccccccccccccc" />
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer3"
+     inkscape:label="Light"
+     style="display:inline">
+    <path
+       inkscape:connector-curvature="0"
+       id="path5742"
+       style="font-size:72px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#222222;fill-opacity:1;stroke:none;font-family:genown_v01;-inkscape-font-specification:genown_v01 Bold"
+       d="m 188,168 0,8 -56,0 0,-64 8,0 0,56 z"
+       sodipodi:nodetypes="ccccccc" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path5744"
+       style="font-size:72px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#222222;fill-opacity:1;stroke:none;font-family:genown_v01;-inkscape-font-specification:genown_v01 Bold"
+       d="m 236,112 0,64 -8,0 0,-64 z m -16,56 0,8 -16,0 0,-8 z m 0,-56 0,8 -16,0 0,-8 z m 40,0 0,8 -16,0 0,-8 z m 0,56 0,8 -16,0 0,-8 z"
+       sodipodi:nodetypes="ccccccccccccccccccccccccc" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path5746"
+       style="font-size:72px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#222222;fill-opacity:1;stroke:none;font-family:genown_v01;-inkscape-font-specification:genown_v01 Bold"
+       d="m 340,144 0,32 -64,0 0,-64 64,0 0,8 -56,0 0,48 48,0 0,-16 -24,0 0,-8 z"
+       sodipodi:nodetypes="ccccccccccccc" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path5748"
+       style="font-size:72px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#222222;fill-opacity:1;stroke:none;font-family:genown_v01;-inkscape-font-specification:genown_v01 Bold"
+       d="m 364,112 0,64 -8,0 0,-64 z m 56,0 0,64 -8,0 0,-64 z m -16,32 0,8 -32,0 0,-8 z"
+       sodipodi:nodetypes="ccccccccccccccc" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path5750"
+       style="font-size:72px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#222222;fill-opacity:1;stroke:none;font-family:genown_v01;-inkscape-font-specification:genown_v01 Bold"
+       d="m 508,112 0,8 -72,0 0,-8 z m -32,8 0,40 -8,0 0,-40 z m 8,48 0,8 -24,0 0,-8 z"
+       sodipodi:nodetypes="ccccccccccccccc" />
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="Layer"
+     style="display:inline">
+    <path
+       style="font-size:72px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#222222;fill-opacity:1;stroke:none;font-family:genown_v01;-inkscape-font-specification:genown_v01"
+       d="m 208,208 0,32 8,0 0,-24 48,0 0,24 8,0 0,-32 z m 16,28 0,4 32,0 0,-4 z"
+       id="path5682"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccccccccccccc" />
+    <path
+       style="font-size:72px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#222222;fill-opacity:1;stroke:none;font-family:genown_v01;-inkscape-font-specification:genown_v01"
+       d="m 288,208 0,32 8,0 0,-24 40,0 0,-8 z m 56,0 0,32 8,0 0,-32 z"
+       id="path5684"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccccccccccc" />
+    <path
+       style="font-size:72px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#222222;fill-opacity:1;stroke:none;font-family:genown_v01;-inkscape-font-specification:genown_v01"
+       d="m 368,208 0,8 56,0 0,24 8,0 0,-32 z m 0,16 0,16 8,0 0,-16 z"
+       id="path5686"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccccccccccc" />
+    <path
+       style="font-size:72px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#dddddd;fill-opacity:1;stroke:none;font-family:genown_v01;-inkscape-font-specification:genown_v01"
+       d="m 208,240 0,32 8,0 0,-32 z m 16,0 0,4 32,0 0,-4 z m 40,0 0,32 8,0 0,-32 z"
+       id="path5772"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccccccccccccc" />
+    <path
+       style="font-size:72px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#dddddd;fill-opacity:1;stroke:none;font-family:genown_v01;-inkscape-font-specification:genown_v01"
+       d="m 288,240 0,32 8,0 0,-32 z m 56,0 0,32 8,0 0,-32 z"
+       id="path5774"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccccccccc" />
+    <path
+       style="font-size:72px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#dddddd;fill-opacity:1;stroke:none;font-family:genown_v01;-inkscape-font-specification:genown_v01"
+       d="m 368,240 0,16 8,0 0,-16 z m 56,0 0,24 -56,0 0,8 64,0 0,-32 z"
+       id="path5776"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccccccccccc" />
+  </g>
+</svg>
