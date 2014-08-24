@@ -16,6 +16,18 @@
         width : 0.8,
         height : 20
       }
+    }, {
+      classType : "NonMoveable",
+      position: { x : 200, y : -100 },
+      size : { width : 50, height : 80 }
+    }, {
+      classType : "NonMoveable",
+      position: { x : 250, y : -120 },
+      size : { width : 50, height : 100 }
+    }, {
+      classType : "EndState",
+      position: { x : 400, y : 60 },
+      size : { width : 40, height : 40 }
     }
   ]
 }

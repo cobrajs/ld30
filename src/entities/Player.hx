@@ -25,6 +25,9 @@ class Player extends WorldDweller {
     grounded = false;
 
     spriteMap = new Spritemap("graphics/player.png", 64, 64);
+    setHitbox(32, 64, -16);
+
+    //originX = -16;
 
     type = "player";
   }
@@ -67,17 +70,21 @@ class Player extends WorldDweller {
   public override function setupGraphics(color:Int, inverseColor:Int) {
     if (color == World.LIGHT) {
       spriteMap.add("stand", [0]);
-      spriteMap.add("walk", [1, 2], 8);
+      spriteMap.add("walk", [1, 2], 4);
       spriteMap.add("air", [2]);
     } else {
       spriteMap.add("stand", [4]);
-      spriteMap.add("walk", [5, 6], 8);
+      spriteMap.add("walk", [5, 6], 4);
       spriteMap.add("air", [6]);
     }
 
     spriteMap.play("walk");
 
     graphic = spriteMap;
+  }
+
+  public override function die() {
+    messageBus.addMessage(MessageBus.DEATH, _world.color);
   }
 }
 

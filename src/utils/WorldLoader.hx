@@ -1,6 +1,9 @@
 package utils;
 
-import entities.*;
+import entities.Player;
+import entities.NonMoveable;
+import entities.EndState;
+import entities.WorldDweller;
 import utils.MessageBus;
 
 import com.haxepunk.graphics.Text;
@@ -33,13 +36,10 @@ class WorldLoader {
       for (object in objects) {
         var classType = Type.resolveClass("entities." + object.classType);
         if (classType != null) {
-          HXP.log(object.classType);
           var x = normalize(object.position.x, lightWorld.width);
           var y = normalize(object.position.y, lightWorld.height);
-          var width = Std.int(normalize(object.size.width, lightWorld.width));
-          var height = Std.int(normalize(object.size.height, lightWorld.height));
-
-          HXP.log(x, y, width, height);
+          var width = Std.int(normalize(object.size.width, lightWorld.width) + 1);
+          var height = Std.int(normalize(object.size.height, lightWorld.height) + 1);
 
           var lightObject:WorldDweller = Type.createInstance(classType, [x, y, messageBus]);
           lightObject.width = width;

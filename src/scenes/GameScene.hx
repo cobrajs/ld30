@@ -15,6 +15,7 @@ import com.haxepunk.utils.Key;
 import flash.geom.Rectangle;
 
 class GameScene extends Scene {
+  private static inline var GAMESCENE_DEATH:String = "gamescene_death";
 
   private var lightWorld:World;
   private var darkWorld:World;
@@ -24,12 +25,18 @@ class GameScene extends Scene {
 
   private var messageBus:MessageBus;
 
+  private var currentLevel:String;
+
 
   /* ---------- HaxePunk Overrides ---------- */
 
 
-  public function new() {
+  public function new(levelName:String, messageBus:MessageBus) {
     super();
+
+    this.messageBus = messageBus;
+
+    currentLevel = levelName;
 
     Input.define("up", [Key.UP, Key.W]);
     Input.define("down", [Key.DOWN, Key.S]);
@@ -57,15 +64,20 @@ class GameScene extends Scene {
 
     switchControl(true);
 
-    WorldLoader.loadWorld("world1", this, lightWorld, darkWorld, messageBus);
+    WorldLoader.loadWorld(currentLevel, this, lightWorld, darkWorld, messageBus);
+
+    messageBus.subscribe(MessageBus.DEATH, GAMESCENE_DEATH, deathMessage);
 	}
+
+  public override function end() {
+    messageBus.unsubscribe(MessageBus.DEATH, GAMESCENE_DEATH, deathMessage);
+  }
 
   public override function update() {
     if (Input.pressed("switch")) {
       switchControl();
     }
-    lightWorld.update();
-    darkWorld.update();
+    super.update();
   }
 
 
@@ -87,5 +99,15 @@ class GameScene extends Scene {
     darkWorld.receiveEvents = dark;
     darkArrow.visible = dark;
   }
+
+
+  /* ---------- Callback Functions ---------- */
+
+
+  private function deathMessage(message:Int):Bool {
+    messageBus.addMessage(MessageBus.SCENE_SWITCH, "gameover");
+    return true;
+  }
+
 }
 

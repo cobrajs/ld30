@@ -57,13 +57,6 @@ class WorldDweller extends Entity {
     }
   }
 
-  public override function moveCollideY(entity:Entity):Bool {
-    if (entity.type == "solid") {
-      grounded = true;
-    }
-    return super.moveCollideY(entity);
-  }
-
   /* ---------- Game Related Functions ---------- */
 
 
@@ -75,11 +68,11 @@ class WorldDweller extends Entity {
       acceleration.y = HXP.sign(acceleration.y) * MAX_ACCELERATION_Y;
     }
 
-    if (x + acceleration.x < _world.x) {
-      moveTo(_world.x, y);
+    if (x - originX + acceleration.x < _world.x) {
+      moveTo(_world.x + originX, y);
       acceleration.x = 0;
-    } else if (x + acceleration.x + width > _world.x + _world.width) {
-      moveTo(_world.x + _world.width - width, y);
+    } else if (x - originX + acceleration.x + width > _world.x + _world.width) {
+      moveTo(_world.x + _world.width - width + originX, y);
       acceleration.x = 0;
     }
 
@@ -88,13 +81,22 @@ class WorldDweller extends Entity {
       acceleration.y = 0;
     } else if (y + acceleration.y > _world.y + _world.height) {
       acceleration.y = 0;
-
+      die();
+      return;
     }
 
-    applyGravity();
-
     moveBy(acceleration.x, acceleration.y, "solid");
+
+    if (collide("solid", x, y + GRAVITY_Y) != null) {
+      grounded = true;
+      acceleration.y = 0;
+    } else {
+      grounded = false;
+      applyGravity();
+    }
   }
+
+  public function die() { }
 
   private function applyDrag() {
     if (Math.abs(acceleration.x) > 0) {
