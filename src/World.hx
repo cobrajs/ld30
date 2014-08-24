@@ -36,6 +36,8 @@ class World extends Entity {
 
     this.messageBus = messageBus;
 
+    layer = 2;
+
     children = new Array<WorldDweller>();
 
     gravity = new Point(0, DEFAULT_GRAVITY);

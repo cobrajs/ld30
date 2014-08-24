@@ -6,16 +6,20 @@ import entities.NonMoveable;
 import utils.WorldLoader;
 import utils.MessageBus;
 
+import com.haxepunk.Entity;
 import com.haxepunk.graphics.Image;
 import com.haxepunk.Scene;
 import com.haxepunk.HXP;
 import com.haxepunk.utils.Input;
 import com.haxepunk.utils.Key;
+import com.haxepunk.tweens.misc.VarTween;
 
 import flash.geom.Rectangle;
 
 class GameScene extends Scene {
   private static inline var GAMESCENE_DEATH:String = "gamescene_death";
+  private static inline var GAMESCENE_WIN_STATE:String = "gamescene_win_state";
+  private static inline var GAMESCENE_NON_WIN_STATE:String = "gamescene_non_win_state";
 
   private var lightWorld:World;
   private var darkWorld:World;
@@ -23,15 +27,23 @@ class GameScene extends Scene {
   private var lightArrow:Image;
   private var darkArrow:Image;
 
+  private var darkSweep:Entity;
+  private var lightSweep:Entity;
+
   private var messageBus:MessageBus;
 
   private var currentLevel:String;
+
+  private var initSweepLight:Bool;
+
+  private var lightWinState:Bool;
+  private var darkWinState:Bool;
 
 
   /* ---------- HaxePunk Overrides ---------- */
 
 
-  public function new(levelName:String, messageBus:MessageBus) {
+  public function new(levelName:String, messageBus:MessageBus, ?light:Bool = true) {
     super();
 
     this.messageBus = messageBus;
@@ -46,6 +58,11 @@ class GameScene extends Scene {
     Input.define("action", [Key.Z, Key.J]);
 
     Input.define("switch", [Key.C, Key.L]);
+
+    initSweepLight = light;
+
+    lightWinState = false;
+    darkWinState = false;
   }
 
 	public override function begin() {
@@ -66,11 +83,34 @@ class GameScene extends Scene {
 
     WorldLoader.loadWorld(currentLevel, this, lightWorld, darkWorld, messageBus);
 
+    lightSweep = new Entity(0, -HXP.height);
+    lightSweep.graphic = Image.createRect(HXP.width, HXP.height, World.LIGHT);
+    lightSweep.layer = 0;
+    add(lightSweep);
+    darkSweep = new Entity(0, HXP.height);
+    darkSweep.graphic = Image.createRect(HXP.width, HXP.height, World.DARK);
+    darkSweep.layer = 0;
+    add(darkSweep);
+
+    var tween = new VarTween();
+    if (initSweepLight) {
+      lightSweep.y = 0;
+      tween.tween(lightSweep, "y", -HXP.height, 0.5);
+    } else {
+      darkSweep.y = 0;
+      tween.tween(darkSweep, "y", HXP.height, 0.5);
+    }
+    addTween(tween, true);
+
     messageBus.subscribe(MessageBus.DEATH, GAMESCENE_DEATH, deathMessage);
+    messageBus.subscribe(MessageBus.WIN_STATE, GAMESCENE_WIN_STATE, winState);
+    messageBus.subscribe(MessageBus.NON_WIN_STATE, GAMESCENE_NON_WIN_STATE, nonWinState);
 	}
 
   public override function end() {
     messageBus.unsubscribe(MessageBus.DEATH, GAMESCENE_DEATH, deathMessage);
+    messageBus.unsubscribe(MessageBus.WIN_STATE, GAMESCENE_WIN_STATE, winState);
+    messageBus.unsubscribe(MessageBus.NON_WIN_STATE, GAMESCENE_NON_WIN_STATE, nonWinState);
   }
 
   public override function update() {
@@ -83,6 +123,14 @@ class GameScene extends Scene {
 
   /* ---------- Game Related Functions ---------- */
 
+
+  public function sweep(light:Bool) {
+    var tween = new VarTween(function(empty:Int) {
+      messageBus.addMessage(MessageBus.SCENE_SWITCH, "gameover" + (light ? "Light" : "Dark"));
+    });
+    tween.tween(light ? lightSweep : darkSweep, "y", 0, 0.4);
+    addTween(tween, true);
+  }
 
   public function switchControl(?light:Bool, ?dark:Bool) {
     if (light != null && dark == null) {
@@ -100,14 +148,38 @@ class GameScene extends Scene {
     darkArrow.visible = dark;
   }
 
+  public function win() {
+    messageBus.addMessage(MessageBus.SCENE_SWITCH, "gameoverLight");
+  }
+
 
   /* ---------- Callback Functions ---------- */
 
 
-  private function deathMessage(message:Int):Bool {
-    messageBus.addMessage(MessageBus.SCENE_SWITCH, "gameover");
+  private function deathMessage(light:Bool):Bool {
+    sweep(light);
     return true;
   }
 
+  private function winState(light:Bool):Bool {
+    if (light) {
+      lightWinState = true;
+    } else {
+      darkWinState = true;
+    }
+    if (lightWinState && darkWinState) {
+      win();
+    }
+    return true;
+  }
+
+  private function nonWinState(light:Bool):Bool {
+    if (light) {
+      lightWinState = false;
+    } else {
+      darkWinState = false;
+    }
+    return true;
+  }
 }
 

@@ -9,7 +9,8 @@ class NonMoveable extends WorldDweller {
   public function new(x:Float, y:Float, messageBus:MessageBus) {
     super(x, y, messageBus);
 
-    type = "solid";
+    baseTypename = "solid";
+    type = getTypename();
   }
 
   // This doesn't move

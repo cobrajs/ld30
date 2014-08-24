@@ -8,6 +8,8 @@ typedef CallbackMap = Map<String, Callback>;
 class MessageBus {
   public static var DEATH:String = "death";
   public static var SCENE_SWITCH:String = "scene_switch";
+  public static var WIN_STATE:String = "win_state";
+  public static var NON_WIN_STATE:String = "non_win_state";
 
   public var messages:Array<Message>;
   public var subscriptions:Map<String, CallbackMap>;
