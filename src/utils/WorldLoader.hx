@@ -38,17 +38,23 @@ class WorldLoader {
         if (classType != null) {
           var x = normalize(object.position.x, lightWorld.width);
           var y = normalize(object.position.y, lightWorld.height);
-          var width = Std.int(normalize(object.size.width, lightWorld.width) + 1);
-          var height = Std.int(normalize(object.size.height, lightWorld.height) + 1);
+          var width = object.size != null? 
+            Std.int(normalize(object.size.width, lightWorld.width) + 1) : 0;
+          var height = object.size != null? 
+            Std.int(normalize(object.size.height, lightWorld.height) + 1) : 0;
 
           var lightObject:WorldDweller = Type.createInstance(classType, [x, y, messageBus]);
-          lightObject.width = width;
-          lightObject.height = height;
+          if (width != 0 && height != 0) {
+            lightObject.width = width;
+            lightObject.height = height;
+          }
           lightWorld.addChild(lightObject);
 
-          var darkObject:WorldDweller = Type.createInstance(classType, [x, y]);
-          darkObject.width = width;
-          darkObject.height = height;
+          var darkObject:WorldDweller = Type.createInstance(classType, [x, y, messageBus]);
+          if (width != 0 && height != 0) {
+            darkObject.width = width;
+            darkObject.height = height;
+          }
           darkWorld.addChild(darkObject);
         }
       }

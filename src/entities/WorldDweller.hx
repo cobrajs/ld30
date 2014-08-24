@@ -26,6 +26,10 @@ class WorldDweller extends Entity {
 
   private var messageBus:MessageBus;
 
+  public var light:Bool;
+
+  public var baseTypename:String;
+
 
   /* ---------- HaxePunk Overrides ---------- */
  
@@ -37,7 +41,15 @@ class WorldDweller extends Entity {
 
     this.messageBus = messageBus;
 
+    layer = 1;
+
     grounded = false;
+
+    baseTypename = "";
+
+    light = true;
+
+    type = getTypename();
   }
   
   public override function update() {
@@ -77,17 +89,15 @@ class WorldDweller extends Entity {
     }
 
     if (y + acceleration.y < _world.y) {
-      moveTo(x, _world.y);
-      acceleration.y = 0;
     } else if (y + acceleration.y > _world.y + _world.height) {
       acceleration.y = 0;
       die();
       return;
     }
 
-    moveBy(acceleration.x, acceleration.y, "solid");
+    moveBy(acceleration.x, acceleration.y, getTypename("solid"));
 
-    if (collide("solid", x, y + GRAVITY_Y) != null) {
+    if (collide(getTypename("solid"), x, y + GRAVITY_Y) != null) {
       grounded = true;
       acceleration.y = 0;
     } else {
@@ -118,9 +128,14 @@ class WorldDweller extends Entity {
   public function assignWorld(_world:World) {
     setupGraphics(_world.color, _world.getInverse());
 
+    light = true;
+
     if (_world.color == World.DARK) {
       graphic.relative = false;
+      light = false;
     }
+
+    type = getTypename();
 
     moveBy(_world.x, _world.y);
 
@@ -129,5 +144,12 @@ class WorldDweller extends Entity {
 
   public function setupGraphics(color:Int, inverseColor:Int) {
     graphic = Image.createRect(Std.int(width), Std.int(height), inverseColor);
+  }
+
+  public function getTypename(?name:String) {
+    if (name == null) {
+      name = baseTypename;
+    }
+    return name + (light ? "_light" : "_dark");
   }
 }

@@ -24,7 +24,11 @@ class Main extends Engine {
 	}
 
   private function sceneSwitch(message:String):Bool {
-    HXP.scene = new GameScene("world1", messageBus);
+    if (message == "gameoverLight") {
+      HXP.scene = new GameScene("world1", messageBus, true);
+    } else if (message == "gameoverDark") {
+      HXP.scene = new GameScene("world1", messageBus, false);
+    }
     return true;
   }
 
