@@ -71,11 +71,13 @@ class Player extends WorldDweller {
     if (color == World.LIGHT) {
       spriteMap.add("stand", [0]);
       spriteMap.add("walk", [1, 2], 4);
-      spriteMap.add("air", [2]);
+      spriteMap.add("air", [3]);
+      spriteMap.add("win", [4]);
     } else {
-      spriteMap.add("stand", [4]);
-      spriteMap.add("walk", [5, 6], 4);
-      spriteMap.add("air", [6]);
+      spriteMap.add("stand", [8]);
+      spriteMap.add("walk", [9, 10], 4);
+      spriteMap.add("air", [11]);
+      spriteMap.add("win", [12]);
     }
 
     spriteMap.play("walk");
