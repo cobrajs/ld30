@@ -29,7 +29,7 @@ class TitleScene extends Scene {
 	public override function begin() {
     addGraphic(new Image("graphics/title.png"));
 
-    var alarmTween = new Alarm(3, function(nothing:Int) {
+    var alarmTween = new Alarm(5, function(nothing:Int) {
       nextScene();
     }, TweenType.OneShot);
     addTween(alarmTween, true);

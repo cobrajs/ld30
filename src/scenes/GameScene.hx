@@ -42,12 +42,16 @@ class GameScene extends Scene {
 
   private var levelData:LevelData;
 
+  private var pause:Bool;
+
 
   /* ---------- HaxePunk Overrides ---------- */
 
 
   public function new(levelName:String, messageBus:MessageBus, ?light:Bool = true) {
     super();
+
+    pause = false;
 
     this.messageBus = messageBus;
 
@@ -61,6 +65,8 @@ class GameScene extends Scene {
     Input.define("action", [Key.Z, Key.J]);
 
     Input.define("switch", [Key.C, Key.L]);
+
+    Input.define("pause", [Key.P, Key.SPACE]);
 
     initSweepLight = light;
 
@@ -126,10 +132,15 @@ class GameScene extends Scene {
     if (Input.pressed("switch") && levelData.control == WorldLoader.SEPARATE) {
       switchControl();
     }
-    if (!hasTween) {
-      super.update();
-    } else {
-      updateTweens();
+    if (Input.pressed("pause")) {
+      pause = !pause;
+    }
+    if (!pause) {
+      if (!hasTween) {
+        super.update();
+      } else {
+        updateTweens();
+      }
     }
   }
 

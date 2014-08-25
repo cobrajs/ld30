@@ -35,7 +35,9 @@ class WinScene extends Scene {
 
   public override function update() {
     if (Input.pressed("proceed") || Input.mouseDown) {
+#if !flash
       flash.Lib.exit();
+#end
     }
     super.update();
   }
