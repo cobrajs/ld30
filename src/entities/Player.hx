@@ -68,6 +68,13 @@ class Player extends WorldDweller {
     super.update();
   }
 
+  public override function moveCollideX(e:Entity):Bool {
+    if (e.type == getTypename("moveblock")) {
+      e.moveBy(oldAcceleration.x, 0);
+    }
+    return true;
+  }
+
   public override function setupGraphics(color:Int, inverseColor:Int) {
     if (color == World.LIGHT) {
       spriteMap.add("stand", [0]);

@@ -1,0 +1,41 @@
+{
+  name : "Level 4",
+  type : "separate",
+  control : "mirrored",
+  helpText : "A mix",
+  light : {
+    playerStart : { x : 100, y: 10 },
+    objects : [
+      {
+        classType : "NonMoveable",
+        position : { x : 0, y : -20 },
+        size : { width : 1, height : 20 }
+      }, {
+        classType : "NonMoveBlock",
+        position: { x : 200, y : -84 }
+      }, {
+        classType : "EndState",
+        position: { x : 200, y : -148 }
+      }
+    ]
+  },
+  dark : {
+    playerStart : { x : 100, y: 10 },
+    objects : [
+      {
+        classType : "NonMoveable",
+        position : { x : 0, y : -20 },
+        size : { width : 1, height : 20 }
+      }, {
+        classType : "MoveBlock",
+        position: { x : 200, y : -100 }
+      }, {
+        classType : "EndState",
+        position: { x : 400, y : -148 }
+      }
+    ]
+  }
+}
+
+
+

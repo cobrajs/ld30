@@ -16,7 +16,13 @@ class EndState extends NonMoveable {
 
     playerIn = false;
 
-    spriteMap = new Spritemap("graphics/endgate.png", 64, 64);
+    spriteMap = new Spritemap("graphics/endgate.png", 64, 64, function() {
+      if (playerIn) {
+        messageBus.addMessage(MessageBus.WIN_STATE, light);
+      } else {
+        messageBus.addMessage(MessageBus.NON_WIN_STATE, light);
+      }
+    });
 
     width = Std.int(spriteMap.width / 2);
     height = Std.int(spriteMap.height);
@@ -49,11 +55,9 @@ class EndState extends NonMoveable {
     if (!playerIn && playerCollide) {
       playerIn = true;
       spriteMap.play("close");
-      messageBus.addMessage(MessageBus.WIN_STATE, light);
     } else if (playerIn && !playerCollide) {
       playerIn = false;
       spriteMap.play("open");
-      messageBus.addMessage(MessageBus.NON_WIN_STATE, light);
     }
   }
 }

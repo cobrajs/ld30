@@ -4,6 +4,7 @@ import entities.Player;
 import entities.NonMoveable;
 
 import utils.WorldLoader;
+import utils.WorldLoader.LevelData;
 import utils.MessageBus;
 
 import com.haxepunk.Entity;
@@ -38,6 +39,8 @@ class GameScene extends Scene {
 
   private var lightWinState:Bool;
   private var darkWinState:Bool;
+
+  private var levelData:LevelData;
 
 
   /* ---------- HaxePunk Overrides ---------- */
@@ -75,13 +78,17 @@ class GameScene extends Scene {
     add(darkWorld);
 
     lightArrow = new Image("graphics/arrow.png", new Rectangle(0, 0, 48, 64));
-    addGraphic(lightArrow, 0, 0, HXP.halfHeight - lightArrow.height);
+    addGraphic(lightArrow, 0, 0, HXP.halfHeight - lightArrow.height - 1);
     darkArrow = new Image("graphics/arrow.png", new Rectangle(48, 0, 48, 64));
     addGraphic(darkArrow, 0, 0, HXP.halfHeight);
 
-    switchControl(true);
+    levelData = WorldLoader.loadWorld(currentLevel, this, lightWorld, darkWorld, messageBus);
 
-    WorldLoader.loadWorld(currentLevel, this, lightWorld, darkWorld, messageBus);
+    if (levelData.control == WorldLoader.SEPARATE) {
+      switchControl(true, false);
+    } else if (levelData.control == WorldLoader.MIRRORED) {
+      switchControl(true, true);
+    }
 
     lightSweep = new Entity(0, -HXP.height);
     lightSweep.graphic = Image.createRect(HXP.width, HXP.height, World.LIGHT);
@@ -92,7 +99,9 @@ class GameScene extends Scene {
     darkSweep.layer = 0;
     add(darkSweep);
 
-    var tween = new VarTween();
+    var tween = new VarTween(function(nothing:Int) {
+      clearTweens();
+    });
     if (initSweepLight) {
       lightSweep.y = 0;
       tween.tween(lightSweep, "y", -HXP.height, 0.5);
@@ -114,19 +123,27 @@ class GameScene extends Scene {
   }
 
   public override function update() {
-    if (Input.pressed("switch")) {
+    if (Input.pressed("switch") && levelData.control == WorldLoader.SEPARATE) {
       switchControl();
     }
-    super.update();
+    if (!hasTween) {
+      super.update();
+    } else {
+      updateTweens();
+    }
   }
 
 
   /* ---------- Game Related Functions ---------- */
 
 
-  public function sweep(light:Bool) {
+  public function sweep(light:Bool, death:Bool, win:Bool) {
     var tween = new VarTween(function(empty:Int) {
-      messageBus.addMessage(MessageBus.SCENE_SWITCH, "gameover" + (light ? "Light" : "Dark"));
+      if (death && !win) {
+        messageBus.addMessage(MessageBus.SCENE_SWITCH, "gameover" + (light ? "Light" : "Dark"));
+      } else if (win && !death) {
+        messageBus.addMessage(MessageBus.SCENE_SWITCH, "win");
+      }
     });
     tween.tween(light ? lightSweep : darkSweep, "y", 0, 0.4);
     addTween(tween, true);
@@ -149,7 +166,7 @@ class GameScene extends Scene {
   }
 
   public function win() {
-    messageBus.addMessage(MessageBus.SCENE_SWITCH, "gameoverLight");
+    sweep(true, false, true);
   }
 
 
@@ -157,7 +174,7 @@ class GameScene extends Scene {
 
 
   private function deathMessage(light:Bool):Bool {
-    sweep(light);
+    sweep(light, true, false);
     return true;
   }
 

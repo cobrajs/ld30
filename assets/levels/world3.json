@@ -1,10 +1,10 @@
 {
-  name : "Level 1",
+  name : "Level 3",
   type : "mirrored",
   control : "separate",
-  helpText : "Move to the end",
+  helpText : "That block is moveable",
   playerStart : {
-    x : 40,
+    x : 100,
     y: 10
   },
   objects : [
@@ -13,8 +13,13 @@
       position : { x : 0, y : -20 },
       size : { width : 1, height : 20 }
     }, {
+      classType : "MoveBlock",
+      position: { x : 200, y : -100 }
+    }, {
       classType : "EndState",
-      position: { x : 400, y : -84 }
+      position: { x : 400, y : -148 }
     }
   ]
 }
+
+

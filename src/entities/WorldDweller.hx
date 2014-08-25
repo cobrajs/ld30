@@ -23,6 +23,7 @@ class WorldDweller extends Entity {
   public var _world:World;
 
   public var acceleration:Point;
+  public var oldAcceleration:Point;
 
   private var messageBus:MessageBus;
 
@@ -38,6 +39,7 @@ class WorldDweller extends Entity {
     super(x, y);
 
     acceleration = new Point(0, 0);
+    oldAcceleration = new Point(0, 0);
 
     this.messageBus = messageBus;
 
@@ -73,6 +75,9 @@ class WorldDweller extends Entity {
 
 
   public function doPhysics() {
+    oldAcceleration.x = acceleration.x;
+    oldAcceleration.y = acceleration.y;
+
     if (Math.abs(acceleration.x) > MAX_ACCELERATION_X) {
       acceleration.x = HXP.sign(acceleration.x) * MAX_ACCELERATION_X;
     }
@@ -95,9 +100,10 @@ class WorldDweller extends Entity {
       return;
     }
 
-    moveBy(acceleration.x, acceleration.y, getTypename("solid"));
+    moveBy(acceleration.x, acceleration.y, [getTypename("solid"), getTypename("moveblock")]);
 
-    if (collide(getTypename("solid"), x, y + GRAVITY_Y) != null) {
+    if (collide(getTypename("solid"), x, y + GRAVITY_Y) != null ||
+        collide(getTypename("moveblock"), x, y + GRAVITY_Y) != null) {
       grounded = true;
       acceleration.y = 0;
     } else {
