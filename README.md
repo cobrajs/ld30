@@ -9,9 +9,13 @@ Control the light and dark sides and reach the exit at the same time on either s
 Made with HaxePunk. This was my first attempt at using it for a game, and I'll definitely be using it again.
 
 ###Controls
+
 **Arrow keys or WASD:** Move currently active avatar(s)
+
 **K or X:** Jump with currently active avatar(s)
+
 **L or C:** Switch active avatar (if possible)
+
 **P or space:** Pause (useful for screenshots or debugging)
 
 There's only five levels, so it's pretty short, and I never got around to sound or music (seems to be the norm for me now). 
