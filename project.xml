@@ -5,8 +5,7 @@
  	<app file="Main" main="Main" path="bin" />
 
 	<window fps="60" background="0x333333" />
-	<window width="640" height="480" resizable="false" unless="mobile" />
-	<window fullscreen="true" if="mobile" />
+	<window width="640" height="480" resizable="false" />
 	<window orientation="landscape" vsync="true" antialiasing="0" if="cpp" />
 
 	<source path="src" />

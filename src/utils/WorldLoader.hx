@@ -45,31 +45,7 @@ class WorldLoader {
 
       // Add objects
       var objects = cast(level.objects, Array<Dynamic>);
-      for (object in objects) {
-        var classType = Type.resolveClass("entities." + object.classType);
-        if (classType != null) {
-          var x = normalize(object.position.x, lightWorld.width);
-          var y = normalize(object.position.y, lightWorld.height);
-          var width = object.size != null? 
-            Std.int(normalize(object.size.width, lightWorld.width) + 1) : 0;
-          var height = object.size != null? 
-            Std.int(normalize(object.size.height, lightWorld.height) + 1) : 0;
-
-          var lightObject:WorldDweller = Type.createInstance(classType, [x, y, messageBus]);
-          if (width != 0 && height != 0) {
-            lightObject.width = width;
-            lightObject.height = height;
-          }
-          lightWorld.addChild(lightObject);
-
-          var darkObject:WorldDweller = Type.createInstance(classType, [x, y, messageBus]);
-          if (width != 0 && height != 0) {
-            darkObject.width = width;
-            darkObject.height = height;
-          }
-          darkWorld.addChild(darkObject);
-        }
-      }
+      addObjects(objects, lightWorld, darkWorld);
     } else if (level.type == SEPARATE) {
       // Add player
       var lightStart = level.light.playerStart;
@@ -79,45 +55,45 @@ class WorldLoader {
 
       // Add objects
       var lightObjects = cast(level.light.objects, Array<Dynamic>);
+      addObjects(lightObjects, lightWorld, null);
       var darkObjects = cast(level.dark.objects, Array<Dynamic>);
-      for (object in lightObjects) {
-        var classType = Type.resolveClass("entities." + object.classType);
-        if (classType != null) {
-          var x = normalize(object.position.x, lightWorld.width);
-          var y = normalize(object.position.y, lightWorld.height);
-          var width = object.size != null? 
-            Std.int(normalize(object.size.width, lightWorld.width) + 1) : 0;
-          var height = object.size != null? 
-            Std.int(normalize(object.size.height, lightWorld.height) + 1) : 0;
+      addObjects(darkObjects, null, darkWorld);
+    }
+    return levelData;
+  }
 
-          var object:WorldDweller = Type.createInstance(classType, [x, y, messageBus]);
+  public static funtion addObjects(objects:Array<Dynamic>, ?lightWorld:World, ?darkWorld:World) {
+    var width = lightWorld != null ? lightWorld.width : darkWorld.width;
+    var height = lightWorld != null ? lightWorld.height : darkWorld.height;
+    for (object in objects) {
+      var classType = Type.resolveClass("entities." + object.classType);
+      if (classType != null) {
+        var x = normalize(object.position.x, width);
+        var y = normalize(object.position.y, height);
+        var width = object.size != null? 
+          Std.int(normalize(object.size.width, width) + 1) : 0;
+        var height = object.size != null? 
+          Std.int(normalize(object.size.height, height) + 1) : 0;
+
+        if (lightWorld != null) {
+          var lightObject:WorldDweller = Type.createInstance(classType, [x, y, messageBus]);
           if (width != 0 && height != 0) {
-            object.width = width;
-            object.height = height;
+            lightObject.width = width;
+            lightObject.height = height;
           }
-          lightWorld.addChild(object);
+          lightWorld.addChild(lightObject);
         }
-      }
-      for (object in darkObjects) {
-        var classType = Type.resolveClass("entities." + object.classType);
-        if (classType != null) {
-          var x = normalize(object.position.x, darkWorld.width);
-          var y = normalize(object.position.y, darkWorld.height);
-          var width = object.size != null? 
-            Std.int(normalize(object.size.width, darkWorld.width) + 1) : 0;
-          var height = object.size != null? 
-            Std.int(normalize(object.size.height, darkWorld.height) + 1) : 0;
 
-          var object:WorldDweller = Type.createInstance(classType, [x, y, messageBus]);
+        if (darkWorld != null) {
+          var darkObject:WorldDweller = Type.createInstance(classType, [x, y, messageBus]);
           if (width != 0 && height != 0) {
-            object.width = width;
-            object.height = height;
+            darkObject.width = width;
+            darkObject.height = height;
           }
-          darkWorld.addChild(object);
+          darkWorld.addChild(darkObject);
         }
       }
     }
-    return levelData;
   }
 
   public static function normalize(number:Float, larger:Float):Float {
